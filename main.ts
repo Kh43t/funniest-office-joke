@@ -37,6 +37,15 @@ function checkSingleLine(line: string): void {
       `the joke is ${line.length} characters, over the ${LONGEST_ALLOWED} limit`,
     );
   }
+  if (line !== line.trim()) {
+    throw new Error("the joke must not start or end with whitespace");
+  }
+  if (line.includes("  ")) {
+    throw new Error("the joke must not carry double spaces: every word earns its place");
+  }
+  if (!/[.!?]$/.test(line)) {
+    throw new Error("the joke must close with terminal punctuation: the punchline lands last");
+  }
   if (!line.includes("optional")) {
     throw new Error("the joke lost its pivot word");
   }
